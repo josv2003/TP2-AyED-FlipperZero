@@ -9,7 +9,7 @@ public class JugadaAnularCasillero extends Jugada {
 
     @Override
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
-        Casillero casilleroAnulado = partida.seleccionarCasillero(); 
+        Casillero<Ficha> casilleroAnulado = partida.seleccionarCasillero(); 
         casilleroAnulado.anular(); 
     }
 }
