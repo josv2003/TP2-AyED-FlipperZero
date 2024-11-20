@@ -11,14 +11,11 @@ public class JugadaCambiarColor extends Jugada {
 	
 
     @Override
-    public void jugar(Partida partida, Turno turnoActual) throws Exception {
+    public void jugar(Partida partida, Turno turnoActual)  {
        
-        Casillero ubicacionFicha = partida.seleccionarCasillero(); 
-        if(ubicacionFicha.getDato()==null) {
-        	throw new Exception("No hay ninguna ficha en este casillero");
-        }
-        
-        Ficha ficha= (Ficha) ubicacionFicha.getDato();
+         Casillero<Ficha> ubicacionFicha = partida.buscarFichaSeleccionada(); 
+       
+        Ficha ficha=  ubicacionFicha.getDato();
         
         char nuevoColor=partida.seleccionarSimbolo();
         
