@@ -7,20 +7,14 @@ public class JugadaBloquearFicha extends Jugada {
 	}
 	
 @Override
-    public void jugar(Partida partida, Turno turnoActual) throws Exception {
+    public void jugar(Partida partida, Turno turnoActual)  {
     	
-    	Casillero ubicacionFicha = partida.seleccionarCasillero(); 
-    	
-    	
-        if (ubicacionFicha == null || ubicacionFicha.getDato() == null) {
-            throw new Exception("El casillero seleccionado no contiene ninguna ficha.");
-        }
-  
+    	Casillero<Ficha> ubicacionFicha = partida.buscarFichaSeleccionada(); 
+
         
+        Ficha fichaBloqueada =  ubicacionFicha.getDato();
         
-        Ficha fichaBloqueada = (Ficha) ubicacionFicha.getDato();
-        
-        fichaBloqueada.setBloquear(); 
+        fichaBloqueada.bloquear(); 
 
         System.out.println("Se ha bloqueado la ficha.");
     }
