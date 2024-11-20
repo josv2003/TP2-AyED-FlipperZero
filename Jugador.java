@@ -57,6 +57,7 @@ public class Jugador {
         Carta carta = mano[indice];
         mano[indice] = null;
         cantidadCartasMano--; 
+	ordenarMano(indice);
         return carta;
     }
 
@@ -82,18 +83,12 @@ public class Jugador {
     	this.inhabilitacionesMano--;
     }
     
-    public void removerCarta(int indice) {
-        if (indice >= 0 && indice < this.mano.length && this.mano[indice] != null) {
-            
-            this.mano[indice] = null;
-
-            for (int i = indice; i < this.mano.length - 1; i++) {
-                this.mano[i] = this.mano[i + 1];
-            }
-
-          
-            this.mano[this.mano.length - 1] = null;
-        }
+    public void ordenarMano(int indice) {
+       for (int i = indice; i < this.mano.length - 1; i++) {
+    	   this.mano[i] = this.mano[i + 1];
+    	   this.mano[i+1]=null;
+       }
+     
     }
     
     @Override
