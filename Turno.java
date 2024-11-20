@@ -45,19 +45,17 @@ public class Turno {
 			int cantidadCartas=dado();
 			System.out.println("Te tocó el numero: "+cantidadCartas);
 			for (int i = 0; i < cantidadCartas; i++) {
-	            if (mazo.estaVacia()) {
-	            	System.out.println("Mazo vacio, se mezclaran las cartas de la mesa");
-	            	mazo.agregarCartasJugadasAlMazo(mesa);
+	            		if (mazo.estaVacia()) {
+	            			System.out.println("Mazo vacio, se mezclaran las cartas de la mesa");
+	            			mazo.agregarCartasJugadasAlMazo(mesa);
 	            	
-	            }
-	            Carta nuevaCarta=mazo.sacarCarta();
-	            try {
-	            	jugadorActual.agregarCartaALaMAno(nuevaCarta, cantidadCartas);
-	            } catch(Exception e) {
-	            	System.out.println(e.getMessage());
-	            	mazo.sacarCarta(nuevaCarta);
-	            	
-	            }
+	            		}
+	            		Carta nuevaCarta=mazo.sacarCarta();
+	           	 	try {
+	            			jugadorActual.agregarCartaALaMAno(nuevaCarta);
+	            		} catch(Exception e) {
+	            			System.out.println(e.getMessage());
+	            		}
 	        
 			}
 			
