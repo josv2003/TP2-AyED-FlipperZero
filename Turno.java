@@ -55,7 +55,7 @@ public class Turno {
 	            	jugadorActual.agregarCartaALaMAno(nuevaCarta, cantidadCartas);
 	            } catch(Exception e) {
 	            	System.out.println(e.getMessage());
-	            	mazo.devolverCarta(nuevaCarta);
+	            	mazo.sacarCarta(nuevaCarta);
 	            	
 	            }
 	        
