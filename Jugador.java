@@ -6,7 +6,11 @@ public class Jugador {
     private String nombre;
     private boolean todasLasFichasEnTablero;
     private Carta[] mano;
-    private int inhabilitacionesMano;
+	
+	private int inhabilitacionesMano;
+    private int cantidadCartasMano;
+
+
     
  
 
@@ -15,6 +19,7 @@ public class Jugador {
         this.todasLasFichasEnTablero=false;
         this.mano=new Carta[MAX_CARTAS];
         this.inhabilitacionesMano=0;
+	    this.cantidadCartasMano=0;
 
     }
     
@@ -24,20 +29,37 @@ public class Jugador {
     }
     
     
-    public void agregarCartaALaMAno(Carta carta, int cantCartas) throws Exception{
-    	
-    	int cartasAgregadas=0;
-    	for(int i=0; i<this.mano.length;i++) {
-    			if(this.mano[i]==null && cartasAgregadas < cantCartas) {
-    				this.mano[i]=carta;
-    				cartasAgregadas++;
-    				
-    			}
-    	}
-    	if(cartasAgregadas<cantCartas) {
+   public void agregarCartaALaMAno(Carta carta) throws Exception{
+    	if(this.cantidadCartasMano==MAX_CARTAS) {
     		throw new Exception("Ya tenes en mano el maximo de cartas");    
     	}
+    
+    	
+    	for(int i=0; i<this.mano.length;i++) {
+        			if(this.mano[i]==null) {
+        				this.mano[i]=carta;
+        				this.cantidadCartasMano++;
+        				return;
+        		    	
+        			}
+    	
+    	}
+    	
     }
+    
+    
+    
+    public Carta quitarCartaDeLaMano(int indice) throws Exception {
+        if (indice < 0 || indice >= mano.length || mano[indice] == null) {
+            throw new Exception("No hay cartas en esa posición");
+        }
+
+        Carta carta = mano[indice];
+        mano[indice] = null;
+        cantidadCartasMano--; 
+        return carta;
+    }
+
     
     public int getInhabilitacionesMano() {
     	return this.inhabilitacionesMano;
