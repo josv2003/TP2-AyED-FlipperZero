@@ -86,9 +86,6 @@ public class Turno {
 		return this.restantesBloqueados;
 	}
 
-	public void setRestantesBloqueados() {
-		this.restantesBloqueados++;
-	}
 	
 
 }
