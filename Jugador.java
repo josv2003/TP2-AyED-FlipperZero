@@ -25,8 +25,9 @@ public class Jugador {
     
     
     public boolean tieneCartas() {
-    	return this.mano!=null;
+    	return this.cantidadCartasMano!=0;
     }
+    
     
     
    public void agregarCartaALaMAno(Carta carta) throws Exception{
@@ -50,6 +51,10 @@ public class Jugador {
     
     
     public Carta quitarCartaDeLaMano(int indice) throws Exception {
+	if (this.inhabilitacionesMano>0) {
+    		throw new Exception("No podes usar la carta mientras tu mano esta inhabilitada");
+    	}
+    	
         if (indice < 0 || indice >= mano.length || mano[indice] == null) {
             throw new Exception("No hay cartas en esa posición");
         }
@@ -83,12 +88,11 @@ public class Jugador {
     	this.inhabilitacionesMano--;
     }
     
-    public void ordenarMano(int indice) {
-       for (int i = indice; i < this.mano.length - 1; i++) {
-    	   this.mano[i] = this.mano[i + 1];
-    	   this.mano[i+1]=null;
-       }
-     
+     public void ordenarMano(int indice) {
+        for (int i = indice; i < this.mano.length - 1; i++) {
+            this.mano[i] = this.mano[i + 1]; 
+        }
+        this.mano[this.mano.length - 1] = null; 
     }
     
     @Override
