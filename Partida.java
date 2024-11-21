@@ -1,5 +1,19 @@
 package tp2;
 
+	public Turno obtenerTurno(Jugador jugador) {
+		for (int i = 0; i < this.jugadores.length; i++) {
+	        if (this.jugadores[i].equals(jugador)) {
+	            return this.turnos[i];
+	        }
+		} 
+		return null;
+	
+	
+	}
+
+
+
+
 
 	public Jugador obtenerJugadorAnterior() {
 		jugador jugadorAnterior=jugadores[(indiceJugadorActual -1 + jugadores.length) %jugadores.length];
