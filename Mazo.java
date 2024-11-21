@@ -1,9 +1,18 @@
-package tp2;
-
+package juego;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import juego.cartas.Carta;
+import juego.cartas.CartaAnularCasillero;
+import juego.cartas.CartaBloquearFicha;
+import juego.cartas.CartaCambiarColor;
+import juego.cartas.CartaDuplicarTurno;
+import juego.cartas.CartaInhabilitarCartas;
+import juego.cartas.CartaPerderTurno;
+import juego.cartas.CartaRetrocederJugada;
+import juego.tablero.estructuras.Cola;
 
 public class Mazo {
 	
@@ -12,12 +21,14 @@ public class Mazo {
 	
 	
 	public Mazo(int cantidadJugadores) throws Exception{
-		if(cantidadJugadores<2) {
+		if(cantidadJugadores < 2) {
 			throw new Exception ("El minimo de jugadores es 2");
 		}
-		this.mazo= new Cola<>();
+		this.mazo= new Cola<Carta>();
 		this.totalCartas=calcularCantidadDeCartas(cantidadJugadores);
 		
+		asignarTipoYDescripcion();
+		mezclarMazo();
 	}
 	
 	
@@ -33,9 +44,6 @@ public class Mazo {
 	public Carta sacarCarta() {
 		return this.mazo.desacolar();
 	}
-	
-	
-	
 	
 	public boolean estaVacia() {
 		return this.mazo.estaVacia();
