@@ -9,6 +9,7 @@ public class Jugador {
 	
 	private int inhabilitacionesMano;
     private int cantidadCartasMano;
+private RelacionDatoCasillero<T> ultimaPosicion;
 
 
     
@@ -20,10 +21,22 @@ public class Jugador {
         this.mano=new Carta[MAX_CARTAS];
         this.inhabilitacionesMano=0;
 	    this.cantidadCartasMano=0;
+	this.ultimaPosicion=null;
 
     }
     
-    
+    public RelacionDatoCasillero<Ficha> registrarDatoPosicionAnterior(datoCasillero) {
+		this.ultimaPosicion=datoCasillero;
+	}
+	
+	public devolverFicha(Ficha ficha) {
+		this.fichas.apilar(ficha);
+	}
+	
+	public RelacionDatoCasillero<T> getUltimaPosicion(){
+		return this.ultimaPosicion;
+	}
+	
     public boolean tieneCartas() {
     	return this.cantidadCartasMano!=0;
     }
