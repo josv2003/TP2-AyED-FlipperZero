@@ -8,8 +8,10 @@ public class JugadaPerderTurno extends Jugada {
 
     @Override
     public void jugar(Partida partida, Turno turnoActual) {
-        turnoActual.sumarBloqueo();
         Jugador jugadorAfectado=partida.seleccionarObjetivo();
+        Turno turnoBloqueado = partida.obtenerTurno(jugadorAfectado);
+        turnoBloqueado.sumarBloqueo();
+        
         System.out.println(jugadorAfectado.getNombre() + " pierde un turno.");
     }
 }
