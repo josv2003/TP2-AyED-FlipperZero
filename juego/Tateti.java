@@ -170,7 +170,10 @@ public class Tateti {
 		while (estadoDelJuego) {
 			Turno turnoActual = this.turnos[indiceTurno % turnos.length];				
 			Jugador jugadorActual = turnoActual.getJugador();
-			if (!turnoActual.estaBloqueado()) {
+			if (turnoActual.estaBloqueado()) {
+				System.out.println(jugadorActual.toString() + " perdiste este turno.");
+		        turnoActual.terminarTurno();
+			} else {
 				System.out.println("Turno de: " + jugadorActual.toString());
 
 				//Levantar la carta	
@@ -237,6 +240,7 @@ public class Tateti {
 		}
 		System.out.println("Juego terminado\nGanó el jugador: " + this.turnos[(indiceTurno % turnos.length) - 1].getJugador().getSimbolo());
 	}
+	
 	
 	/**
 	 * pre:
