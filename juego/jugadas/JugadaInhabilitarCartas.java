@@ -23,7 +23,7 @@ public class JugadaInhabilitarCartas extends Jugada{
 	public void jugar(Tateti partida, Turno turnoActual) {
 		Jugador jugadorAfectado = Escaner.preguntarJugador(partida.getJugadores());
 		jugadorAfectado.inhabilitarMano();
-		System.out.println(jugadorAfectado.getSimbolo() + " no podes usar tus cartas por un turno.");
+		System.out.println(jugadorAfectado.getId().getSimbolo() + " no podes usar tus cartas por un turno.");
 	}
 	
 //GETTERS SIMPLES ----------------------------------------------------------------------------------

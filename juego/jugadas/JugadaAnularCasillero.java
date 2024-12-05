@@ -21,9 +21,13 @@ public class JugadaAnularCasillero extends Jugada {
 	
 	@Override
 	public void jugar(Tateti partida, Turno turnoActual) throws Exception {
-        Casillero<Ficha> casilleroAnulado = partida.seleccionarCasillero(); 
-        casilleroAnulado.anular(); 
-        System.out.println("Se ha anulado el casillero.");
+		try {
+			Casillero<Ficha> casilleroAnulado = partida.seleccionarCasillero(); 
+	        casilleroAnulado.anular(); 
+	        System.out.println("Se ha anulado el casillero.");
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 //GETTERS SIMPLES ----------------------------------------------------------------------------------

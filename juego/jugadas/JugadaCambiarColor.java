@@ -1,6 +1,7 @@
 package juego.jugadas;
 
 import juego.Escaner;
+import juego.RelacionSimboloColor;
 import juego.Tateti;
 import juego.Turno;
 import juego.cartas.Carta;
@@ -22,13 +23,22 @@ public class JugadaCambiarColor extends Jugada {
 	@Override
 	public void jugar(Tateti partida, Turno turnoActual) throws Exception {
 		partida.mostrarFichasPosiones(partida.getTablero().getPosicionDeLasDatos());
-		Long idFicha = Escaner.preguntarLong("Id:");
-		Ficha ficha = partida.buscarFicha(partida.getTablero().getPosicionDeLasDatos(), idFicha);
+		Ficha ficha = null;
+		while (ficha==null) {
+			try {
+				Long idFicha = Escaner.preguntarLong("Id:");
+				ficha = partida.buscarFicha(partida.getTablero().getPosicionDeLasDatos(), idFicha);
+			}catch (Exception e) {
+				System.out.println("Intentá de nuevo, error: "+ e.getMessage());
+			}
+			
+		}
+		
+        RelacionSimboloColor nuevoId = Escaner.preguntarId("Seleccione a que simbolo quiere cambiarla ficha", partida.getJugadores());
        
-        char nuevoColor = Escaner.preguntarSimbolo("Seleccione a que simbolo quiere cambiarla ficha", partida.getJugadores());
-       
-        ficha.setSimbolo(nuevoColor);
-        System.out.println("Se ha cambiado el color de la ficha a " + nuevoColor);
+        ficha.setSimbolo(nuevoId.getSimbolo());
+        ficha.setColor(nuevoId.getColor());
+        System.out.println("Se ha cambiado el color de la ficha a " + nuevoId.getColor());
 	}
 
 //GETTERS SIMPLES ----------------------------------------------------------------------------------

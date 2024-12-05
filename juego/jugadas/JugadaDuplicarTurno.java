@@ -19,7 +19,7 @@ public class JugadaDuplicarTurno extends Jugada{
 
 	@Override
 	public void jugar(Tateti partida, Turno turnoActual) {
-		turnoActual.duplicar();
+		turnoActual.setDuplicado(true);
 		System.out.println(" Duplicaste tu turno.");
 	}
 	

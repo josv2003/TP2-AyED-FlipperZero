@@ -24,26 +24,48 @@ public class JugadaRetrocederJugada extends Jugada {
 	
 	@Override
 	public void jugar(Tateti partida, Turno turnoActual) throws Exception {
+		try {
+			Jugador jugadorAfectado = Escaner.preguntarJugador(partida.getJugadores());
+            
+	        RelacionDatoCasillero<Ficha> ultimaJugada = jugadorAfectado.getUltimaPosicionMovida();
+	       	
+	        retrocederJugada(partida, ultimaJugada, jugadorAfectado);
+	        	
+	        System.out.println("Se ha retrocedido la última jugada del jugador seleccionado.");
+			
+		}catch (Exception e) {
+			System.out.println("Error: "+ e.getMessage());
+		}
 		
 	       
-        Jugador jugadorAfectado = Escaner.preguntarJugador(partida.getJugadores());
-            
-        RelacionDatoCasillero<Ficha> ultimaJugada = jugadorAfectado.getUltimaPosicionMovida();
-       	
-        retrocederJugada(partida, ultimaJugada, jugadorAfectado);
-        	
-        System.out.println("Se ha retrocedido la última jugada anterior a la tuya.");
+        
 	}
 
 	private void retrocederJugada(Tateti partida, RelacionDatoCasillero<Ficha> ultimaJugada, Jugador jugadorAfectado) throws Exception {
+		if(ultimaJugada==null) {
+			throw new Exception ("No es posible retroceder una jugada");
+		}
 		Ficha ficha = ultimaJugada.getDato();
-		Casillero<Ficha> casilleroOrigen = ultimaJugada.getCasillero();
-		Casillero<Ficha> casilleroDestino = partida.getTablero().getCasillero(ficha);
-		partida.getTablero().mover(casilleroOrigen, casilleroDestino, ficha);
+		Casillero<Ficha> casilleroRetroceder = ultimaJugada.getCasillero();
+		
+		if (jugadorAfectado.tieneTodasLasFichasEnElTablero()) {
+			Casillero<Ficha> casilleroOrigen = partida.getTablero().getCasillero(ficha);
+			partida.getTablero().mover(casilleroOrigen, casilleroRetroceder, ficha);
+			
+		} else {
+			jugadorAfectado.devolverFicha(ficha);
+			casilleroRetroceder.vaciar();
+			partida.getTablero().getPosicionDeLasDatos().remover(ultimaJugada);
+	
+	}
+			System.out.println("Se vacio el casillero");
+			
+			
+		}
+		
 	}
 
 //GETTERS SIMPLES ----------------------------------------------------------------------------------
 //SETTERS SIMPLES ----------------------------------------------------------------------------------
 	
    
-}

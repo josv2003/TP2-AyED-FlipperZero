@@ -23,17 +23,30 @@ public class JugadaBloquearFicha extends Jugada {
 
 	@Override
 	public void jugar(Tateti partida, Turno turnoActual) throws Exception {
-		Lista<RelacionDatoCasillero<Ficha>> fichasPosciones = partida.getTablero().getPosicionDeLasDatos();
-		
-		System.out.println("Seleccione la ficha a bloquear (seleccione ID):");
-		partida.mostrarFichasPosiones(fichasPosciones);
-		Long IdFicha = Escaner.preguntarLong("Ingrese ID: ");
-		
-		Ficha fichaBloqueada = partida.buscarFicha(fichasPosciones, IdFicha);   
-        
-        fichaBloqueada.bloquear(); 
+		try {
+			Lista<RelacionDatoCasillero<Ficha>> fichasPosciones = partida.getTablero().getPosicionDeLasDatos();
+			
+			System.out.println("Seleccione la ficha a bloquear (seleccione ID):");
+			partida.mostrarFichasPosiones(fichasPosciones);
+			Ficha fichaBloqueada = null;
+			while(fichaBloqueada == null) {
+				try {
+					Long IdFicha = Escaner.preguntarLong("Ingrese ID: ");
+					fichaBloqueada = partida.buscarFicha(fichasPosciones, IdFicha);
+				}catch (Exception e) {
+					System.out.println("Intentá de nuevo, error: "+ e.getMessage());
+				}
+				
+			}
+			
+	        
+	        fichaBloqueada.bloquear(); 
 
-        System.out.println("Se ha bloqueado la ficha.");
+	        System.out.println("Se ha bloqueado la ficha.");
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 
 

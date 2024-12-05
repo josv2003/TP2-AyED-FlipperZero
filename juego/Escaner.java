@@ -102,15 +102,13 @@ public class Escaner {
         boolean valido = false;
 
         do {
-            int opcion = preguntarEntero("Selecciona una opción:");
+            int opcion = preguntarEnteroConRango("Selecciona una opción:",0,cartas.getLongitud());
             if (opcion == 0) {
                 valido = true; // El usuario no quiere usar ninguna carta.
-            } else if (opcion > 0 && opcion <= cartas.getLongitud()) {
+            } else { 
                 seleccionada = cartas.obtener(opcion);
                 valido = true;
-            } else {
-                System.out.println("Opción inválida. Por favor, selecciona un número válido.");
-            }
+            } 
         } while (!valido);
 
         return seleccionada;
@@ -127,7 +125,9 @@ public class Escaner {
             System.out.println("Entrada no válida. Por favor, introduce un número de tipo Long:");
             scanner.next(); // Limpiar la entrada inválida.
         }
-        return scanner.nextLong();
+        Long resultado = scanner.nextLong();
+        scanner.nextLine();
+        return resultado;
     }
     
     /**
@@ -145,7 +145,7 @@ public class Escaner {
         boolean valido = false;
 
         do {
-            int opcion = preguntarEntero("Selecciona un jugador:");
+            int opcion = preguntarEnteroConRango("Selecciona un jugador:",1, jugadores.length);
             if (opcion > 0 && opcion <= jugadores.length) {
                 seleccionado = jugadores[opcion - 1];
                 valido = true;
@@ -163,26 +163,29 @@ public class Escaner {
      * @param jugadores Vector de jugadores cuyos símbolos son las opciones válidas.
      * @return Carácter seleccionado por el usuario, convertido a mayúsculas.
      */
-    public static char preguntarSimbolo(String mensaje, Jugador[] jugadores) {
+    public static RelacionSimboloColor preguntarId(String mensaje, Jugador[] jugadores) {
         System.out.println(mensaje);
         System.out.print("Opciones disponibles:\n");
         for (Jugador jugador : jugadores) {
-            System.out.print("- "+ jugador.getSimbolo() + " \n");
+            System.out.print("- "+ jugador.getId().getSimbolo() + " " + jugador.getId().getColor()+ "\n");
         }
         System.out.println();
 
-        char simboloSeleccionado = '\0';
+        RelacionSimboloColor idSeleccionado = null;
         boolean valido = false;
+        
 
+       
         do {
         	String entrada = scanner.nextLine().trim().toUpperCase(); // Convertir entrada a mayúsculas.
             if (entrada.length() == 1) {
                 char simbolo = entrada.charAt(0);
                 for (Jugador jugador : jugadores) {
-                    if (simbolo == jugador.getSimbolo()) {
-                        simboloSeleccionado = simbolo;
+                    if (simbolo == jugador.getId().getSimbolo()) {
+                        idSeleccionado = jugador.getId();
                         valido = true;
                         break;
+                       
                     }
                 }
             }
@@ -191,8 +194,34 @@ public class Escaner {
             }
         } while (!valido);
 
-        return simboloSeleccionado;
+        return idSeleccionado;
     }
+
+    /**
+     * Método de clase para preguntar un número en cierto rango.
+     * @param mensaje Mensaje que se muestra al usuario.
+     * @param min Valor minimo del rango del número a preguntar.
+     * @param max Valor maximo del rango del número a preguntar.
+     * @return El número selecionado por el usuario
+     */
+    public static int preguntarEnteroConRango(String mensaje, int min, int max) {
+    	int numero;
+    	while (true) {
+    		try {
+    			System.out.println(mensaje);
+    			numero = Integer.parseInt(scanner.nextLine());
+    			
+    			if (numero >= min && numero <= max) {
+    				return numero;
+    			} else {
+    				System.out.println("El número debe estar entre " + min + " y " + max + ". Intenta de nuevo.");
+    			}
+    		} catch (Exception e) {
+    			System.out.println("Entrada inválida. Por favor, ingresa un número entero.");
+    		}
+    	}
+    }
+    
 // METODOS GENERALES ---------------------------------------------------------------------------
 // METODOS DE COMPORTAMIENTO -------------------------------------------------------------------
 // GETTERS SIMPLES -----------------------------------------------------------------------------

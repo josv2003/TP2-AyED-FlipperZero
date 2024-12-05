@@ -160,7 +160,10 @@ public class Casillero<T> {
 	 * pre:
 	 * post: anula el casillero
 	 */
-	public void anular() {
+	public void anular() throws Exception{
+		if(this.anulado=true) {
+			throw new Exception("El casillero ya estaba anulado");
+		}
 		this.anulado = true;
 	}
 	
@@ -184,6 +187,8 @@ public class Casillero<T> {
 	public T getDato() {
 		return this.dato;
 	}
+	
+
 
 	/**
 	 * pre: 
