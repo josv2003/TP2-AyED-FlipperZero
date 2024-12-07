@@ -79,6 +79,14 @@ public class Tablero<T> {
 			casillero1.setCasilleroVecino(casillero2, Casillero.invertirCoordenadaDeVecino(i), Casillero.invertirCoordenadaDeVecino(j), Casillero.invertirCoordenadaDeVecino(k));
 		}
 
+		/**
+		 * 
+		 * @param i
+		 * @param j
+		 * @param k
+		 * @return si existe el casillero o no
+		 * @throws Exception
+		 */
 		public boolean existeElCasillero(int i, int j, int k) throws Exception {
 			if ((i < 1) || 
 				(j < 1) ||
@@ -193,19 +201,34 @@ public class Tablero<T> {
 	//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
-
+		/**
+		 * 
+		 * @return devuelve el ancho del tablero
+		 */
 		public int getAncho() {
 			return ancho;
 		}
 
+		/**
+		 * 
+		 * @return devuelve el alto del tablero 
+		 */
 		public int getAlto() {
 			return alto;
 		}
 		
+		/**
+		 * 
+		 * @return devuelve la profundidad del tablero
+		 */
 		public int getProfundidad() {
 			return profundidad;
 		}
 
+		/**
+		 * 
+		 * @return devuelve la lista de las posiciones de los datos 
+		 */
 		public Lista<RelacionDatoCasillero<T>> getPosicionDeLasDatos() {
 			return posicionDeLasDatos;
 		}

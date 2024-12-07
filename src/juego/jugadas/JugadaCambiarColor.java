@@ -28,10 +28,11 @@ public class JugadaCambiarColor extends Jugada {
 			try {
 				Long idFicha = Escaner.preguntarLong("Id:");
 				ficha = partida.buscarFicha(partida.getTablero().getPosicionDeLasDatos(), idFicha);
+				int[] coordenadasCambioColor = partida.buscarPosicionFicha(partida.getTablero().getPosicionDeLasDatos(), idFicha);
+				turnoActual.setCoordenadasCambioColor(coordenadasCambioColor);
 			}catch (Exception e) {
 				System.out.println("Intentá de nuevo, error: "+ e.getMessage());
-			}
-			
+			}			
 		}
 		
         RelacionSimboloColor nuevoId = Escaner.preguntarId("Seleccione a que simbolo quiere cambiarla ficha", partida.getJugadores());

@@ -50,7 +50,7 @@ public class Tateti {
 		this.turnos = new Turno[cantidadJugadores];
 		this.jugadores = new Jugador[cantidadJugadores];
 		for (int i = 0; i < cantidadJugadores; i++) {
-			int simbolo = i + 87;
+			int simbolo = i + 79;
 			int r = (i * 30) % 256;
 			int g = (i * 160) % 256;
 			int b = (i * 100) % 256;
@@ -85,16 +85,18 @@ public class Tateti {
 	
 //METODOS DE COMPORTAMIENTO ------------------------------------------------------------------------
 	
-	/**
-	 * pre:
-	 * @param jugador
-	 * post: si el jugador no tiene fichas para jugar termina el juego
-	 */
-	public void todasLasFichasRobadas(Jugador jugador) {
-		if(jugador.getFichas()==null) {
-			estadoDelJuego = false;
-		}
-	}
+//	/**
+//	 * pre:
+//	 * @param jugador
+//	 * post: si el jugador no tiene fichas para jugar termina el juego
+//	 */
+//	public boolean todasLasFichasRobadas(Jugador jugador) {
+//		if((jugador.getFichas()==null) || 
+//			(jugador.getCantidadFichasBloquedas() == jugador.getFichas().contarElementos())) {
+//			return true;
+//		}
+//		return false;
+//	}
 	
 	/**
 	 * pre: 
@@ -268,13 +270,18 @@ public class Tateti {
 				turnoActual.terminarTurno();
 				verificarGanador(casilleroDestino);
 				
-				if (this.maxCartasMano!=0) {
+				if (this.maxCartasMano!= 0) {
 					
 					//Si juega una carta
 					if (jugadorActual.getInhabilitacionesMano() <= 0) {
 						Carta cartaActual = Escaner.preguntarCarta(jugadorActual.getCartas());
 						if(cartaActual != null) {
 							cartaActual.getJugada().jugar(this, turnoActual);
+							if (cartaActual.getTitulo().equals("Cambiar el color de una ficha")) {
+								int[] coordenadas = turnoActual.getCoordenadasCambioColor();
+								casilleroDestino = tablero.getCasillero(coordenadas[0], coordenadas[1], coordenadas[2]);
+								verificarGanador(casilleroDestino);
+							}
 							jugadorActual.jugarCarta(cartaActual);
 							this.cartasMesa.agregarCarta(cartaActual);
 						}
@@ -297,7 +304,7 @@ public class Tateti {
 	}
 	
 	/**
-	 * pre:
+	 * pre: pide ingresar coordenadas por consola
 	 * @param jugador
 	 * post: colaca una ficha del jugador en el casillero de las coordenadas ingresadas por consola 
 	 * @throws Exception 
@@ -335,15 +342,14 @@ public class Tateti {
 	
 	/**
 	 * pre:
-	 * @param ficha: indica la ficha a mover
-	 * @param movimiento: indica el movimiento a realizar ( horizontal, vertical o profundo))
+	 * @param jugador: indica el jugador que va a mover 
 	 * @throws Exception: si no se puede mover, da error
 	 * post: mueve la ficha de una posicion a otra, quedando el casillero vacio en el origen y la ficha en el 
 	 * 		 casillero destino 
 	 */
 	public Casillero<Ficha> mover(Jugador jugador) throws Exception {
 		System.out.println("Seleccione la ficha a mover (mediante su ID):");
-		mostrarFichasPosiones(this.tablero.getPosicionDeLasDatos(), jugador);
+		mostrarFichasPosionesPorJugador(this.tablero.getPosicionDeLasDatos(), jugador);
 		Ficha ficha = null;
 		
 		do {
@@ -431,6 +437,23 @@ public class Tateti {
 		throw new Exception("No existe la ficha");
 	}
 	
+	public int[] buscarPosicionFicha(Lista<RelacionDatoCasillero<Ficha>> posicionesFichas, Long idFicha) throws Exception {	
+		posicionesFichas.iniciarCursor();
+		while (posicionesFichas.avanzarCursor()) {
+			Casillero<Ficha> casilleroActual = posicionesFichas.obtenerCursor().getCasillero();
+			Ficha fichaActual = posicionesFichas.obtenerCursor().getDato();
+			Long idActual = fichaActual.getId();
+			if (idActual.equals(idFicha)) {
+				int[] coordenadas = new int[3];
+				coordenadas[0] = casilleroActual.getX();
+				coordenadas[1] = casilleroActual.getY();
+				coordenadas[2] = casilleroActual.getZ();
+				return coordenadas;
+			}
+		}
+		throw new Exception("No existe la ficha");
+	}
+	
 	/**
 	 * 
 	 * @param posicionesFichas
@@ -469,9 +492,9 @@ public class Tateti {
 	 * pre:
 	 * @param fichasPosciones
 	 * @param jugadorActual
-	 * post:
+	 * post: muestra por consola las fichas disponible y su ubicación por jugador 
 	 */
-	public void mostrarFichasPosiones(Lista<RelacionDatoCasillero<Ficha>> fichasPosciones, Jugador jugadorActual) {
+	public void mostrarFichasPosionesPorJugador(Lista<RelacionDatoCasillero<Ficha>> fichasPosciones, Jugador jugadorActual) {
 		fichasPosciones.iniciarCursor();
 		while (fichasPosciones.avanzarCursor()) {
 			RelacionDatoCasillero<Ficha> fichaCasillero = fichasPosciones.obtenerCursor();
@@ -481,7 +504,7 @@ public class Tateti {
 		}
 	}
 	
-	/**
+	/** 
 	 * pre:
 	 * @param filename
 	 * @throws Exception

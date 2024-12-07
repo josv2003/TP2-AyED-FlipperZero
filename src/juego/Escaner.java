@@ -197,6 +197,13 @@ public class Escaner {
         return idSeleccionado;
     }
 
+    /**
+     * Método de clase para preguntar un número en cierto rango.
+     * @param mensaje Mensaje que se muestra al usuario.
+     * @param min Valor minimo del rango del número a preguntar.
+     * @param max Valor maximo del rango del número a preguntar.
+     * @return El número selecionado por el usuario
+     */
     public static int preguntarEnteroConRango(String mensaje, int min, int max) {
     	int numero;
     	while (true) {

@@ -16,6 +16,8 @@ import juego.tablero.estructuras.Cola;
 
 public class Mazo {
 //ATRIBUTOS DE CLASE -------------------------------------------------------------------------------
+	int PROMEDIO_CARTAS_POR_TURNO = 3;
+	int RONDAS_MINIMAS = 5;
 //ATRIBUTOS ----------------------------------------------------------------------------------------
 	private Cola<Carta> mazo;
 	private int totalCartas;
@@ -32,8 +34,8 @@ public class Mazo {
 		if(cantidadJugadores < 2) {
 			throw new Exception ("El minimo de jugadores es 2");
 		}
-		this.mazo= new Cola<Carta>();
-		this.totalCartas=calcularCantidadDeCartas(cantidadJugadores);
+		this.mazo = new Cola<Carta>();
+		this.totalCartas = cantidadJugadores * RONDAS_MINIMAS * PROMEDIO_CARTAS_POR_TURNO;
 		
 		asignarTipoYDescripcion();
 		mezclarMazo();
@@ -84,17 +86,6 @@ public class Mazo {
 	}
 	
 	/**
-	 * 
-	 * @param cantidadJugadores
-	 * @return devuelve la cantidad de cartas que ingresa de acuerdo a la cantidad de jugadores
-	 */
-	public int calcularCantidadDeCartas(int cantidadJugadores) {
-		int promedioCartasPorTurno=3;
-		int rondasMinimas=5;
-		return  cantidadJugadores * promedioCartasPorTurno * rondasMinimas;
-	}
-	
-	/**
 	 * pre: a partir de el mazo de la meza done estan las cartas jugadas
 	 * @param mesa
 	 * post: agrega las cartas ya jugadas al mazo de nuevo y lo mezcla
@@ -105,6 +96,7 @@ public class Mazo {
 		}
 		mezclarMazo();
 	}
+	
 	/**
 	 * post: mezcla el mazo de cartas
 	 */
@@ -122,7 +114,7 @@ public class Mazo {
 	}
 		
 	/**
-	 * post: asigna los tipos y la cantidad de cartas a ingresa en el mazo
+	 * post: asigna los tipos y la cantidad de cartas a ingresar en el mazo
 	 * @throws Exception
 	 */
 	public void asignarTipoYDescripcion() throws Exception{
@@ -179,6 +171,10 @@ public class Mazo {
 	
 //GETTERS SIMPLES ----------------------------------------------------------------------------------
 
+	/**
+	 * 
+	 * @return devuelve la cantidad de cartas del mazo
+	 */
 	public int getTotalCartas() {
 		return this.totalCartas;
 	}

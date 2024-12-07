@@ -16,6 +16,7 @@ public class Jugador {
 	private RelacionSimboloColor id = null;
 	private int inhabilitacionesMano = 0;
 	private int maxCartasMano;
+//	private int cantidadFichasBloquedas = 0;
 	
 	
 	
@@ -23,7 +24,7 @@ public class Jugador {
 
 	/**
 	 * pre:
-	 * @param idJugador
+	 * @param idJugador: contiene el simbolo y el color a asignar
 	 * @param maxCartasMano
 	 * @param fichasPorJugador
 	 * post: crea un jugador con una mano de cartas, una pila de fichas y le asigna su simbolo-color
@@ -133,6 +134,14 @@ public class Jugador {
 	    this.inhabilitacionesMano--;
 	}
 	
+//	public void verificarFichasBloqueadas() {
+//		for (int i = 0; i < this.fichas.contarElementos(); i++) {
+//			if (this.fichas.obtener().isBloqueado()) {
+//				this.cantidadFichasBloquedas++; 				
+//			}
+//		}
+//	}
+	
 	
 //GETTERS SIMPLES ----------------------------------------------------------------------------------
 	
@@ -152,10 +161,18 @@ public class Jugador {
 		return fichas;
 	}
 
+	/**
+	 * 
+	 * @return devuelve cuantas inhabilitaciones tiene la mano de cartas
+	 */
 	public int getInhabilitacionesMano() {
 		return inhabilitacionesMano;
 	}
 
+	/**
+	 * 
+	 * @return devuelve la ultima posicion movida 
+	 */
 	public RelacionDatoCasillero<Ficha> getUltimaPosicionMovida() {
 		return ultimaPosicionMovida;
 	}
@@ -176,13 +193,17 @@ public class Jugador {
 		return id;
 	}
 
+//	public int getCantidadFichasBloquedas() {
+//		return cantidadFichasBloquedas;
+//	}
 
 //SETTERS SIMPLES ----------------------------------------------------------------------------------
+
 
 	/**
 	 * 
 	 * @param ultimaPosicionMovida
-	 * post: devuelve la ultima posicion movida
+	 * post: guarda la ultima posicion movida del jugador
 	 */
 	public void setUltimaPosicionMovida(RelacionDatoCasillero<Ficha> ultimaPosicionMovida) {
 		this.ultimaPosicionMovida = ultimaPosicionMovida;

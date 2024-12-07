@@ -20,10 +20,7 @@ public class Menu {
 	
 	
 	public void ejecutarMenu() throws Exception{
-		
-		
-		
-		
+
 		mostrarBienvenida();
 		
 		configurarInicio();
@@ -32,12 +29,6 @@ public class Menu {
 
 		System.out.println("¡Comencemos a jugar!");
 		partida.jugar();
-		
-		
-		
-		
-		
-		
 		
 	}
 	
@@ -55,9 +46,7 @@ public class Menu {
 			this.cartasMano=6;
 		}
 		
-		
 	}
-	
 	
 	public void configurarInicio()throws Exception{
 		System.out.println("MENÚ INICIAL");
@@ -70,7 +59,7 @@ public class Menu {
 		
 		System.out.println("Elegí el nivel de dificultad:");
         System.out.println("1. Fácil: 6 fichas por jugador en tablero de 3x3x3");
-        System.out.println("2. Medio: 5 fichas por jugador en tablero de 4x4x4)");
+        System.out.println("2. Medio: 5 fichas por jugador en tablero de 4x4x4");
         System.out.println("3. Difícil: 6 fichas por jugador  en tablero de 6x6x6");
 		
         this. dificultad = Escaner.preguntarEnteroConRango("Ingresá la dificultad (1-3): ",1,3);
@@ -96,7 +85,6 @@ public class Menu {
         }
 		
 	}
-	
 	
 	public void mostrarBienvenida() {
 		System.out.println("¡Bienvenidos al tateti 3D!");
